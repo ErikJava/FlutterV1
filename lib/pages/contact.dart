@@ -56,16 +56,11 @@ class _ContactState extends State<Contact> {
               const SizedBox(height: 20),
               TextButton(
                 onPressed: () {
-                  final name = _nameController.text;
-                  final email = _emailController.text;
-                  final phone = _phoneController.text;
-                  final message = _messageController.text;
+                  // Show a snackbar message.
+                  _showMessageSentSnackbar(context);
 
-                  print('Name: $name');
-                  print('Email: $email');
-                  print('Phone: $phone');
-                  print('Message: $message');
-                  print('Not a Bot: $_notABot');
+                  // Reset the form.
+                  _resetForm();
                 },
                 child: const Text('Send Message'),
               ),
@@ -77,15 +72,36 @@ class _ContactState extends State<Contact> {
   }
 
   Widget _buildFormField(String label, TextEditingController controller) {
-    return TextFormField(
-      controller: controller,
-      decoration: InputDecoration(
-        labelText: label,
-        border: const OutlineInputBorder(),
-        contentPadding: const EdgeInsets.symmetric(vertical: 10, horizontal: 12),
+    return Container(
+      child: TextFormField(
+        controller: controller,
+        decoration: InputDecoration(
+          labelText: label,
+          border: const OutlineInputBorder(),
+          contentPadding: const EdgeInsets.symmetric(vertical: 10, horizontal: 12),
+        ),
+        style: const TextStyle(fontSize: 16),
       ),
-      style: const TextStyle(fontSize: 16),
     );
+  }
+
+  void _showMessageSentSnackbar(BuildContext context) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(
+        content: Text('Message Sent!'),
+        duration: Duration(seconds: 2), // Duration for which the snackbar is displayed.
+      ),
+    );
+  }
+
+  void _resetForm() {
+    _nameController.clear();
+    _emailController.clear();
+    _phoneController.clear();
+    _messageController.clear();
+    setState(() {
+      _notABot = false;
+    });
   }
 
   @override
@@ -97,4 +113,17 @@ class _ContactState extends State<Contact> {
     super.dispose();
   }
 }
+
+void main() {
+  runApp(
+    MaterialApp(
+      initialRoute: '/contact',
+      routes: {
+        '/contact': (context) => const Contact(),
+      },
+    ),
+  );
+}
+
+
 
