@@ -78,7 +78,8 @@ class _ContactState extends State<Contact> {
         decoration: InputDecoration(
           labelText: label,
           border: const OutlineInputBorder(),
-          contentPadding: const EdgeInsets.symmetric(vertical: 10, horizontal: 12),
+          contentPadding:
+              const EdgeInsets.symmetric(vertical: 10, horizontal: 12),
         ),
         style: const TextStyle(fontSize: 16),
       ),
@@ -89,7 +90,8 @@ class _ContactState extends State<Contact> {
     ScaffoldMessenger.of(context).showSnackBar(
       const SnackBar(
         content: Text('Message Sent!'),
-        duration: Duration(seconds: 2), // Duration for which the snackbar is displayed.
+        duration: Duration(
+            seconds: 2), // Duration for which the snackbar is displayed.
       ),
     );
   }
@@ -124,6 +126,3 @@ void main() {
     ),
   );
 }
-
-
-
